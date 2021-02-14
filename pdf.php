@@ -10,7 +10,7 @@ function getbody($filename)
   $dom->loadHTML($file);
   libxml_clear_errors();
   
-  $bodies = $dom->getElementsByTagName('html');
+  $bodies = $dom->getElementsByTagName('body');
   assert($bodies->length === 1);
   $body = $bodies->item(0);
   //for ($i = 0; $i < $body->children->length; $i++) {
@@ -19,11 +19,11 @@ function getbody($filename)
   $stringbody = $dom->saveHTML($body);
   $start = stripos($stringbody, '<body');
   $end = stripos($stringbody, '>', $start);
-  $newtag = substr_replace($stringbody,  "<style".saveCssLinks($filename)."/>" , $end + 1, 0);
+  $newtag = substr_replace($stringbody,  "<style a7a".saveCssLinks($filename)."/>", $end + 1, 0);
   return $newtag;
 }
 
-$url = "https://stackoverflow.com";
+$url = "https://qor360.com";
 $bodycontent = getbody($url);
 ?>
 
