@@ -1,7 +1,8 @@
 <?php
 include 'extractcss.php';
+require_once 'autoload.inc.php';
 header('Content-Type:text/html; charset=UTF-8');
-
+use Dompdf\Dompdf;
 function getbody($filename)
 {
   $file = file_get_contents($filename);
@@ -25,6 +26,14 @@ function getbody($filename)
 
 $url = "https://qor360.com";
 $bodycontent = getbody($url);
+function creatpdf($pdf){
+  $dompdf = new Dompdf();
+$dompdf->loadHtml($pdf);
+$dompdf->setPaper('A4', 'landscape');
+$dompdf->render();
+$dompdf->stream("sample",array("Attachment"=>0));
+}
+creatpdf($bodycontent);
 ?>
 
 <html>
@@ -34,7 +43,7 @@ $bodycontent = getbody($url);
 <body>
   <?php
   
-  echo "<textarea rows='40' cols='200' >" . $bodycontent . "</textarea>";
+ //echo "<textarea rows='40' cols='200' >" . $bodycontent . "</textarea>";
   ?>
 </body>
 
