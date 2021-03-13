@@ -1,5 +1,7 @@
 <?php
-//$str = "https://qor360.com";
+$p = "https://indemand.group/about/";
+//echo saveCssLinks($p);
+
 function saveCssLinks($str)
 {
     $arr_links = array();
@@ -12,6 +14,7 @@ function saveCssLinks($str)
 
     $dom = new DOMDocument();
     @$dom->loadHTML($html);
+	libxml_clear_errors();
 
     $links_tags = $dom->getElementsByTagName('link'); // Returns all tagName with <link>
 
@@ -49,6 +52,12 @@ function checkUrl($url)
 // Function that checks whether a file is Css or not.
 function isCss($url)
 {
+	if(strpos($url, '?') !== -1){
+	$url = substr($url, 0, strpos($url, '?'));
+	//echo $url;
+	}
+	//echo $url;
+	//echo'ya a7ty';
     if (substr($url, -4) === '.css')
     {
         return true;
@@ -62,11 +71,10 @@ function isCss($url)
 // This function main role is to take an array of links as a parameters and get the contents of every link, append them to the newCss.css file
 // and voila.
 function appendToString($arr){
-    $str = null;
+    $c = "";
     foreach($arr as $cssLink){
-    $str .= file_get_contents($cssLink);
+    $c .= file_get_contents($cssLink);
     }
-    return $str;
+    return $c;
 }
-//saveCssLinks($str);
 ?>
